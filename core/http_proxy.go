@@ -393,6 +393,13 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 						}
 					}
 				}
+				
+				// Use a mobile user agent
+				useragent := req.Header.Get("User-Agent")
+				if useragent != "" {                                   
+							req.Header.Set("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36")
+							log.Debug("[%d] Injected User Agent : Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36 ", ps.Index)
+				}
 
 				// fix referer
 				referer := req.Header.Get("Referer")
